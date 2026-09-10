@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "matrix-loading"
+version = "0.1.0"
+description = "Matrix construct telemetry simulation demonstrating pip vs Poetry"
+authors = ["Operator <operator@nebuchadnezzar.local>"]
+readme = "README.md"
+packages = [{include = "loading.py"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.1.0"
+numpy = "^1.25.0"
+matplotlib = "^3.7.2"
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
