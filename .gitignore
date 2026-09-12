@@ -2,4 +2,3 @@
 __pycache__/
 *.pyc
 maze.txt
-log_generator.md
