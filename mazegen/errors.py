@@ -1,4 +1,4 @@
-"""Exceptions raised by the A-Maze-ing Phase 1 application."""
+"""Exceptions raised by the A-Maze-ing application."""
 
 
 class MazeError(Exception):

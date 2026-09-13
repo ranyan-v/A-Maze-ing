@@ -26,9 +26,9 @@ PATTERN_42_COLORS: ColorPalette = (
 )
 
 COLOR_RESET = "\033[0m"
-COLOR_ENTRY = "\033[92m"      # 亮绿色 (Entry)
-COLOR_EXIT = "\033[91m"       # 亮红色 (Exit)
-COLOR_PATH = "\033[93m"       # 亮黄色 (Path)
+COLOR_ENTRY = "\033[92m"      # 亮绿色
+COLOR_EXIT = "\033[91m"       # 亮红色
+COLOR_PATH = "\033[93m"       # 亮黄色
 
 
 @dataclass
@@ -44,7 +44,8 @@ def _decode_solution_positions(
     entry: Position,
     solution: Solution,
 ) -> set[Position]:
-    """Convert a solution string ('NEE...') into a set of visited coordinates."""
+    """Convert a solution string ('NEE...')
+    into a set of visited coordinates."""
     dir_map = {d.value: d for d in Direction}
     path_positions: set[Position] = set()
     cur_x, cur_y = entry
@@ -65,7 +66,6 @@ def render_maze(
     solution: Solution = "",
     state: VisualizerState | None = None,
 ) -> str:
-    """Render the maze into an ANSI color formatted ASCII string."""
     if state is None:
         state = VisualizerState()
 
@@ -78,7 +78,8 @@ def render_maze(
     wall_color = WALL_COLORS[state.wall_color_idx]
     pattern_color = PATTERN_42_COLORS[state.pattern_color_idx]
     lines: list[str] = []
-
+    # “双行展开法”（Two-Row Expansion per Grid Row）：对于迷宫的每一行 y，
+    # 都分解为顶部水平墙壁行和房间主体垂直墙壁行两行来打印。
     for y in range(maze.height):
         # 1. 顶部北墙
         top_parts: list[str] = []
@@ -160,9 +161,12 @@ def interactive_loop(
         display_maze(current_maze, current_solution, state)
         print("\nControls:")
         print(" [r] Re-generate new maze")
-        print(f" [p] Display shortest path (Currently: {'ON' if state.show_path else 'OFF'})")
-        print(f" [c] Change wall colour (Current index: {state.wall_color_idx + 1}/{len(WALL_COLORS)})")
-        print(f" [4] Change '42' pattern colour (Current index: {state.pattern_color_idx + 1}/{len(PATTERN_42_COLORS)})")
+        print(f" [p] Display shortest path (Currently: \
+{'ON' if state.show_path else 'OFF'})")
+        print(f" [c] Change wall colour (Current index: \
+{state.wall_color_idx + 1}/{len(WALL_COLORS)})")
+        print(f" [4] Change '42' pattern colour (Current index: \
+{state.pattern_color_idx + 1}/{len(PATTERN_42_COLORS)})")
         print(" [q] Quit visualizer")
 
         try:
@@ -178,7 +182,8 @@ def interactive_loop(
         elif cmd == "p":
             state.show_path = not state.show_path
         elif cmd == "c":
-            state.wall_color_idx = (state.wall_color_idx + 1) % len(WALL_COLORS)
+            state.wall_color_idx = (state.wall_color_idx + 1) % \
+                len(WALL_COLORS)
         elif cmd == "4":
             state.pattern_color_idx = (
                 state.pattern_color_idx + 1

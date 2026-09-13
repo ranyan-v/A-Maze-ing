@@ -5,6 +5,7 @@ from collections.abc import Sequence
 
 from config import Config
 from mazegen.errors import MazeError
+from mazegen.maze import Maze
 from mazegen.generator import MazeGenerator
 from output import write_output
 from mazegen.solver import shortest_path
@@ -22,7 +23,7 @@ def main(arguments: Sequence[str] | None = None) -> int:
     try:
         config = Config.from_file(args[0])
 
-        def generate_and_solve() -> tuple[object, str]:
+        def generate_and_solve() -> tuple[Maze, str]:
             # 重新生成时不强制锁定 seed，产生真正的新随机迷宫
             new_maze = MazeGenerator(
                 width=config.width,

@@ -44,7 +44,7 @@ OPPOSITE: dict[Direction, Direction] = {
 class Cell:
     """A maze cell represented by a four-bit wall mask."""
 
-    walls: int = 0xF
+    walls: int = 0xF  # -> close all the walls
 
 
 class Maze:
@@ -114,6 +114,16 @@ class Maze:
         opposite = OPPOSITE[direction]
         self.cell(first).walls &= ~WALL_BITS[direction]
         self.cell(second).walls &= ~WALL_BITS[opposite]
+
+    def seal(self, first: Position, second: Position) -> None:
+        """Close the shared wall between two orthogonally adjacent cells."""
+
+        self._validate_position(first, "first cell")
+        self._validate_position(second, "second cell")
+        direction = self._direction_between(first, second)
+        opposite = OPPOSITE[direction]
+        self.cell(first).walls |= WALL_BITS[direction]
+        self.cell(second).walls |= WALL_BITS[opposite]
 
     def hexadecimal_rows(self) -> list[str]:
         """Return the maze rows encoded as uppercase hexadecimal digits."""
