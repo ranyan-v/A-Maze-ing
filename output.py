@@ -2,9 +2,9 @@
 
 from pathlib import Path
 
-from errors import OutputError
-from maze import Maze
-from solver import Solution
+from mazegen.errors import OutputError
+from mazegen.maze import Maze
+from mazegen.solver import Solution
 
 
 def write_output(filename: Path, maze: Maze, solution: Solution) -> None:

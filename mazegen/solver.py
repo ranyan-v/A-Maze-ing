@@ -3,8 +3,8 @@
 from collections import deque
 from typing import TypeAlias
 
-from errors import SolveError
-from maze import Direction, Maze, Position
+from mazegen.errors import SolveError
+from mazegen.maze import Direction, Maze, Position
 
 Solution: TypeAlias = str
 
