@@ -47,6 +47,7 @@ class MazeGenerator:
 
         return maze
 
+---------------------------------------------
     def _prevent_open_areas(self, maze: Maze) -> None:
         """Scan and break any 3x3 open areas where all internal walls were removed."""
 
@@ -66,11 +67,11 @@ class MazeGenerator:
         """Return True if all 12 interior walls within the 3x3 window are open."""
 
         # 1. 检查 6 道内部横向共用墙 (x 到 x+1)
-        for dy in range(3):
+        for dy in range(3):  # <-- 检查三行
             y = top_y + dy
-            for dx in range(2):
+            for dx in range(2): # <-- 检查每行的两道墙
                 x = left_x + dx
-                if not maze.is_open((x, y), Direction.EAST):
+                if not maze.is_open((x, y), Direction.EAST): # <-- 检查所在位置能不能往东走
                     return False
 
         # 2. 检查 6 道内部纵向共用墙 (y 到 y+1)
@@ -83,35 +84,37 @@ class MazeGenerator:
 
         return True
 
+---------------------------------------------
     def _generate_spanning_tree(
         self,
         maze: Maze,
         reserved: frozenset[Position],
     ) -> None:
-        expected_cells = self.width * self.height - len(reserved)
-        visited: set[Position] = {self.entry}
-        stack: list[Position] = [self.entry]
+        expected_cells = self.width * self.height - len(reserved) # <-- 计算应该访问多少个 cell
+        visited: set[Position] = {self.entry} # <-- 存储：已经访问过的 cell
+        stack: list[Position] = [self.entry] # <-- 记录最后一个可行位置
 
-        while stack:
-            current = stack[-1]
+        while stack: # <-- 只要 stack 里面还有东西，就继续 DFS
+            current = stack[-1] # <-- 取 stack 最后一个元素
             candidates = [
                 (position, direction)
                 for position, direction in maze.neighbours(current)
                 if position not in visited and position not in reserved
-            ]
+            ] # <-- Unvisited and non-reserved neighboring cells
 
-            if not candidates:
+            if not candidates: # <-- 没路了，回溯
                 stack.pop()
-                continue
+                continue # <-- 结束这一轮 while，直接进入下一轮
 
-            next_position, _ = self._random.choice(candidates)
+            next_position, _ = self._random.choice(candidates) # <-- maze.neighbours(current)返回(position, direction) 我要第一个值position；第二个值我不关心
             maze.carve(current, next_position)
             visited.add(next_position)
             stack.append(next_position)
 
-        if len(visited) != expected_cells:
+        if len(visited) != expected_cells: # <-- 实际访问数量是不是理论上应该访问的数量
             raise GenerationError("could not connect every maze cell")
 
+---------------------------------------------
     def _count_open_walls(self, maze: Maze, position: Position) -> int:
         """计算某个格子四周打开了多少面墙。"""
         return sum(
