@@ -1,0 +1,17 @@
+[project]
+name = "mazegen"
+version = "0.1.0"
+description = "a maze generator in Python"
+authors = [
+    {name = "rayan, rjiao"}
+]
+license = {text = "LICENSE.md"}
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
