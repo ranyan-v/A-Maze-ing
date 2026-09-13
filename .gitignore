@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+build/
+mazegen.egg-info/
+maze.txt
+mazegen-1.0.0-py3-none-any.whl
+pyproject.toml
