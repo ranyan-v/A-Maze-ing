@@ -1,8 +1,8 @@
 # A-Maze-ing Phase 1 default configuration
-WIDTH=20
-HEIGHT=20
-ENTRY=1,1
-EXIT=19,19
+WIDTH=15
+HEIGHT=15
+ENTRY=0,0
+EXIT=14,14
 OUTPUT_FILE=maze.txt
 PERFECT=FALSE
 SEED=42

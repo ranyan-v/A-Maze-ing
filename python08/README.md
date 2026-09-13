@@ -2,8 +2,15 @@
 
 # Description
 A-Maze_Ing is a complete maze generation, braiding, solving, and interactive visualization toolkit.
+DFS (Depth-first search) is used to generate the maze, because it  only tracks the current branch on the stack in the worst case, but typically far fewer cells in memory at any one time, making it lightweight and fast to execute.
+
+BFS (Breadth-first search) is used to find the solution  because its ersult is mathematically guaranteed to be the shortest path.
+
+We used Terminal ASCII renddering.
 
 # Instructions
+python3 a_maze_ing.py config.txt
+python3 maze_analyzer.py maze.txt
 
 ## Reusable Library: `mazegen`
 
@@ -13,32 +20,13 @@ The core generation and solving mechanics are packaged into the standalone `maze
 pip install build
 python3 -m build --wheel --outdir .
 
-Install the prebuilt wheel directly via `pip`:
+### Create a new virtual environment to test
+python -m venv test 
+source test/bin/activate
+pip install mazegen-0.1.0-py3-none-any.whl
+...
 
-pip install mazegen-1.0.0-py3-none-any.whl
-
-### Usage example:
-from mazegen import MazeGenerator, shortest_path
-
-#### Generate a Pac-Man braided maze with 42 mask
-generator = MazeGenerator(
-    width=15,
-    height=15,
-    entry=(0, 0),
-    exit=(14, 14),
-    seed=42,
-    perfect=False,
-)
-maze = generator.generate()
-
-#### Solve shortest path
-path = shortest_path(maze)
-print("Solution steps:", path)
-
-#### Export hex rows
-for row in maze.hexadecimal_rows():
-    print(row)
-
+deactivate
 # Team management
 ## The roles of each team member
 rayan is responsible for the mathematical model and algorithm implementation, including the maze data structure design, open space prevention, BFS based shortest path solver, etc.
@@ -53,4 +41,4 @@ Along with the progress of other python modules, we ontice that it would have be
 For this project, we use tools like python 3.10+, flake8, mypy, poetry.
 
 # Resources
-
+We used AI mainly to get better understanding of the concepts of different kinds of maze, the process of maze generating, as well as the visualization process.
