@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import TypeAlias
 
-from errors import ConfigError
+from mazegen.errors import ConfigError
 
 Position: TypeAlias = tuple[int, int]
 

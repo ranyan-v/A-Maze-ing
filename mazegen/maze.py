@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Iterator, TypeAlias
 
-from errors import MazeError
+from mazegen.errors import MazeError
 
 Position: TypeAlias = tuple[int, int]
 

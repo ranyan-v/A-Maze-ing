@@ -1,21 +1,38 @@
-# A-Maze-ing
+# A-Maze-Ing
 
-Phase 1 currently provides configuration parsing, perfect-maze generation,
-shortest-path solving, and the required output file.
+A complete maze generation, braiding, solving, and interactive visualization toolkit.
 
-## Run
+## Reusable Library: `mazegen`
+
+The core generation and solving mechanics are packaged into the standalone `mazegen` module.
+
+### Installation
+pip install build
+python3 -m build --wheel --outdir .
+
+Install the prebuilt wheel directly via `pip`:
 
 ```bash
-python3 a_maze_ing.py config.txt
-```
+pip install mazegen-1.0.0-py3-none-any.whl
 
-The configuration file must be the only command-line argument.
+### Usage example:
+from mazegen import MazeGenerator, shortest_path
 
-## Test
+# Generate a Pac-Man braided maze with 42 mask
+generator = MazeGenerator(
+    width=15,
+    height=15,
+    entry=(0, 0),
+    exit=(14, 14),
+    seed=42,
+    perfect=False,
+)
+maze = generator.generate()
 
-```bash
-python3 -m unittest discover -s tests -v
-```
+# Solve shortest path
+path = shortest_path(maze)
+print("Solution steps:", path)
 
-The `42` pattern, playable mazes, visualization, reusable packaging, and
-bonus features are intentionally not implemented yet.
+# Export hex rows
+for row in maze.hexadecimal_rows():
+    print(row)
