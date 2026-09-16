@@ -209,7 +209,7 @@ class MazeGenerator:
             loops_added = self._add_loops(maze, reserved)
             loops_added += self._braid_dead_ends(maze, reserved)
 
-        if loops_added < 2:
+        if not self.perfect and loops_added < 2:
             raise GenerationError(
                 "could not create at least two loops"
             )
